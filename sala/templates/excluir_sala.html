@@ -1,0 +1,32 @@
+
+    <div class="container pb-2">
+        <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'salas' %}">Salas</a></li>
+                <li><a href="{% url 'salas' %}">Gerenciar Salas</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Exluir Sala</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-mobile">
+                <div class="column is-half is-offset-one-quarter">
+                    <h3 class="title is-size-3">Informações da Sala</h3>
+                    <p class="p-2 mt-2"><strong>Número: </strong> {{ object.numero }} </p>
+                    <p class="p-2 mt-2"><strong>Bloco: </strong> {{ object.bloco }} </p>
+                    <p class="p-2 mt-2"><strong>Tipo da sala: </strong> {{ object.uso }} </p>
+                    <form method="POST" enctype="multipart/form-data">
+                        <p> Confirma a exclusão da "{{ object }}"? </p>
+                        <br />
+                        <button class="button is-link is-primary" type="submit">Excluir</button>
+                        <button class="button is-danger is-pulled-right" type="reset">
+                            <a href="{% url 'salas' %}" style="color: white;">Cancelar</a>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>

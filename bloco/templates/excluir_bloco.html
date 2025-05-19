@@ -1,0 +1,36 @@
+{% extends "principal.html" %}
+{% block content %}
+
+<div class="container pb-2">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="{% url 'blocos' %}">Blocos</a></li>
+            <li><a href="{% url 'blocos' %}">Gerenciar Blocos</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Excluir Bloco</a></li>
+        </ul>
+    </nav>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-mobile">
+            <div class="column is-half is-offset-one-quarter">
+                <h3 class="title is-size-3">Informações do Bloco</h3>
+                <p class="p-2 mt-2"><strong>Codigo: </strong> {{ object.nome }} </p>
+                <p class="p-2 mt-2"><strong>Andares: </strong> {{ object.andares }} </p>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p class="has-text-centered"><strong>Confirma a exclusão do "{{ object }}"?</strong></p>
+                    <br/>
+                    <button class="button is-link is-primary" type="submit">Excluir</button>
+                    <button class="button is-danger is-pulled-right" type="reset">
+                        <a href="{% url 'blocos' %}" style="color: white;">Cancelar</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

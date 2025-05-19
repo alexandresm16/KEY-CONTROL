@@ -1,0 +1,42 @@
+{% extends 'principal.html' %}
+{% load static %}
+{% load bulma_tags %}
+{% block content %}
+<div class="container pb-2">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'professores' %}">Professores</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Cadastrar Professor</a></li>
+        </ul>
+    </nav>
+</div>
+
+<section class="section columns has-background-info-dark">
+    <div class="box column is-half has-background-primary-lighter">
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|bulma }}
+
+            <div class="field is-grouped pt-4">
+                <div class="control">
+                    <input class="button is-medium is-success" type="submit" value="Cadastrar">
+                </div>
+
+                <div class="control">
+                    <button class="button is-medium is-danger is-light">
+                        <a href="{% url 'professores' %}">Cancelar</a>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="column is-half pt-0">
+        <figure class="image is-3by2">
+            <img src="{% static 'img/chave-hero.png' %}">
+        </figure>
+    </div>
+</section>
+{% endblock %}

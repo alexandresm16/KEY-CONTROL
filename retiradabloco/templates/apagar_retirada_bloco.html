@@ -1,0 +1,42 @@
+{% extends 'principal.html' %}
+{% load static %}
+{% load bulma_tags %}
+{% block content %}
+    <div class="container pb-2">
+        <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'retirada_bloco' %}">Gerenciar Retiradas</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Retirada</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="section has-background-success-light">
+        <div class="container">
+            <h3 class="title is-size-3 has-text-centered">Informações da Retirada</h3>
+            <div class="columns is-mobile">
+                <div class="column is-4 is-offset-3 has-text-justified">
+                    <p class="p-2 mt-2"><strong>Bloco da chave: </strong> {{ object.chave.bloco }} </p>
+                    <p class="p-2 mt-2"><strong>Código da chave: </strong> {{ object.chave.codigo }} </p>
+                    <p class="p-2 mt-2"><strong>Data da retirada: </strong> {{ object.data }} </p>
+                </div>
+                <div class="column is-4 has-text-justified">
+                    <p class="p-2 mt-2"><strong>Funcionario: </strong> {{ object.funcionario }} </p>
+                    <p class="p-2 mt-2"><strong>Data da devolução: </strong> {{ object.devolucao }} </p>
+                </div>
+            </div>
+            <div class="has-text-centered">
+                <p class="pt-4"> Confirma a exclusão da retirada da chave "{{ object.chave.codigo }}"? </p>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <br/>
+                    <button class="button is-link is-primary" type="submit">Confirmar</button>
+                    <button class="button is-danger" type="reset">
+                        <a href="{% url 'retirada_bloco' %}" style="color: white;">Cancelar</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+{% block head %}
+{% include "head.html" %}
+{% endblock %}
+{% load bulma_tags %}
+
+<body>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'index' %}">
+            <img src="{% static 'img/poli.png' %}" width="112" height="28">
+        </a>
+
+        {% if request.user.is_authenticated %}
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="{% url 'index' %}">
+                Home
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Blocos
+                </a>
+                <div class="navbar-dropdown">
+                    <a href="{% url 'cadastro_bloco' %}" class="navbar-item">
+                        Cadastrar Bloco
+                    </a>
+                    <a class="navbar-item" href="{% url 'blocos' %}">
+                        Gerenciar Blocos
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Salas
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'cadastro_sala' %}">
+                        Cadastrar Sala
+                    </a>
+                    <a class="navbar-item" href="{% url 'salas' %}">
+                        Gerenciar Salas
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Professores
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'cadastro_professor' %}">
+                        Cadastrar Professor
+                    </a>
+                    <a class="navbar-item" href="{% url 'professores' %}">
+                        Gerenciar Professores
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Funcionarios
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'cadastro_funcionario' %}">
+                        Cadastrar Funcionario
+                    </a>
+                    <a class="navbar-item" href="{% url 'funcionarios' %}">
+                        Gerenciar Funcionarios
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Chaves
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'cadastro_chave_bloco' %}">
+                        Cadastrar Chave do Bloco
+                    </a>
+                    <a class="navbar-item" href="{% url 'chave_bloco' %}">
+                        Gerenciar Chaves dos Blocos
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'cadastro_chave_sala' %}">
+                        Cadastrar Chave de Sala
+                    </a>
+                    <a class="navbar-item" href="{% url 'chave_sala' %}">
+                        Gerenciar Chaves das Salas
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Retirada Funcionarios
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'retirada_chave_bloco' %}">
+                        Retirar chave Bloco
+                    </a>
+                    <a class="navbar-item" href="{% url 'retirada_bloco' %}">
+                        Gerenciar retiradas Blocos
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'retirada_chave_sala' %}">
+                        Retirar chave Sala
+                    </a>
+                    <a class="navbar-item" href="{% url 'retirada_sala' %}">
+                        Gerenciar retiradas Sala
+                    </a>
+                </div>
+            </div>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Retirada Professores
+                </a>
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'retirada_chave_blocop' %}">
+                        Retirar chave Bloco
+                    </a>
+                    <a class="navbar-item" href="{% url 'retirada_blocop' %}">
+                        Gerenciar retiradas Blocos
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="{% url 'retirada_chave_salap' %}">
+                        Retirar chave Sala
+                    </a>
+                    <a class="navbar-item" href="{% url 'retirada_salap' %}">
+                        Gerenciar retiradas Sala
+                    </a>
+                </div>
+            </div>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" style="font-family: Times New Roman;">
+                        <span> Usuário: {{ request.user.username }}</span>
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a href="{% url 'alterar_senha' %}" class="navbar-item">
+                            Alterar Senha
+                        </a>
+                        <a href="{% url 'logout' %}" class="navbar-item">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link" style="font-family: Times New Roman;">
+                        <span>Acesso</span>
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a href="{% url 'alterar_senha' %}" class="navbar-item">
+                            Alterar Senha
+                        </a>
+                        <a href="{% url 'login' %}" class="navbar-item">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{% include 'messages.html' %}
+
+{% block content %} {% endblock %}
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+</body>
+
+</html>

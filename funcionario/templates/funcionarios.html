@@ -1,0 +1,74 @@
+{% extends "principal.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container pb-2">
+        <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'funcionarios' %}">Funcionarios</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Gerenciar Funcionarios</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="section has-background-link-light">
+        <div class="box mx-6">
+            <form action="" method="GET">
+                <div class="field is-grouped is-flex is-align-items-center is-flex-wrap-wrap">
+                    <label class="label p-2 mt-2">Nome do Funcionario: </label>
+                    <div class="control is-expanded">
+                        <input class="input" type="text" name="buscar" value="{{ request.GET.buscar }}"
+                               placeholder="Digite o nome do funcionario">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+                    {% if object_list %}
+                <div style="text-align: center;">
+                    <h1 class="subtitle is-size-4 py-4">Funcionarios Cadastrados</h1>
+                </div>
+                <div class="table">
+                    <table class="table is-table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th class="has-text-centered">Nome</th>
+                                <th class="has-text-centered">Função</th>
+                                <th class="has-text-centered">Telefone</th>
+                                <th class="has-text-centered">E-mail</th>
+                                <th class="has-text-centered" style="width: 100px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for funcionario in object_list %}
+                                <tr class="has-text-centered">
+                                    <td> {{ funcionario.nome }} </td>
+                                    <td> {{ funcionario.funcao }} </td>
+                                    <td> {{ funcionario.fone }} </td>
+                                    <td> {{ funcionario.email }} </td>
+                                    <td class="has-text-centered is-flex is-flex-wrap-nowrap is-justify-content-center">
+                                        <a href="{% url 'editar_funcionario' funcionario.pk %}">
+                                            <span class="icon">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="{% url 'apagar_funcionario' funcionario.pk %}">
+                                            <span class="icon">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                  {% include 'paginator.html' %}
+              {% endif %}
+        </div>
+    </section>
+{% endblock %}

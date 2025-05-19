@@ -1,0 +1,72 @@
+{% extends "principal.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="container pb-2">
+        <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'index' %}">Chaves</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Gerenciar Chaves de Blocos</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="section has-text-centered mx-6">
+        <div class="box mx-6">
+            <form action="" method="GET">
+                <div class="field is-grouped is-flex is-align-items-center is-flex-wrap-wrap">
+                    <label class="label p-2 mt-2">Buscar por Codigo da Chave: </label>
+                    <div class="control is-expanded">
+                        <input class="input" type="text" name="buscar" value="{{ request.GET.buscar }}"
+                               placeholder="Digite o codigo da chave">
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button is-link">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+          {% if object_list %}
+            <div style="text-align: center;">
+                <h1 class="subtitle is-size-4 py-4">Chaves</h1>
+            </div>
+
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th class="has-text-centered">Codigo da Chave</th>
+                        <th class="has-text-centered">Bloco</th>
+                        <th class="has-text-centered" style="width: 100px;">Disponibilidade</th>
+                        <th class="has-text-centered" style="width: 100px;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 {% for object in object_list %}
+                    <tr class="has-text-centered">
+                        <td> {{ object.codigo }} </td>
+                        <td> {{ object.bloco }} </td>
+                        <td> {{ object.disponibilidade }} </td>
+                        <td class="has-text-centered is-flex is-flex-wrap-nowrap is-justify-content-center">
+                            <a href="{% url 'editar_chave_bloco' object.pk %}">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                            <a href="{% url 'apagar_chave_bloco' object.pk %}">
+                                <span class="icon">
+                                    <i class="far fa-trash-alt"></i>
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                              {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                  {% include 'paginator.html' %}
+              {% endif %}
+        </div>
+    </section>
+{% endblock %}

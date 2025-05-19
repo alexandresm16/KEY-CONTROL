@@ -1,0 +1,73 @@
+{% extends "principal.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container pb-2">
+    <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="is-active"><a href="#" aria-current="page">Salas</a></li>
+        </ul>
+    </nav>
+</div>
+
+<section class="section has-background-link-light">
+    <div class="box mx-6">
+        <form action="" method="GET">
+            <div class="field is-grouped is-flex is-align-items-center is-flex-wrap-wrap">
+                <label class="label p-2 mt-2">Codigo da Sala: </label>
+                <div class="control is-expanded">
+                    <input class="input" type="text" name="buscar" value="{{ request.GET.buscar }}"
+                           placeholder="Digite o codigo da sala">
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-link">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </form>
+        {% if object_list %}
+            <div style="text-align: center;">
+                <h1 class="title is-size-4 py-4">Salas Cadastradas</h1>
+            </div>
+            <div class="table">
+                <table class="table is-table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th class="has-text-centered">Numero</th>
+                            <th class="has-text-centered">Bloco</th>
+                            <th class="has-text-centered">Andar</th>
+                            <th class="has-text-centered">Uso</th>
+                            <th class="has-text-centered" style="width: 100px;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for Sala in object_list %}
+                            <tr class="has-text-centered">
+                                <td> {{ Sala.numero }} </td>
+                                <td> {{ Sala.bloco }} </td>
+                                <td> {{ Sala.andar }} </td>
+                                <td> {{ Sala.uso }} </td>
+                                <td class="has-text-centered is-flex is-flex-wrap-nowrap is-justify-content-center">
+                                    <a href="{% url 'editar_sala' Sala.pk %}">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a href="{% url 'excluir_sala' Sala.pk %}">
+                                        <span class="icon">
+                                            <i class="far fa-trash-alt"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% include "paginator.html" %}
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

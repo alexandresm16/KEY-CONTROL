@@ -1,0 +1,42 @@
+{% extends "principal.html" %}
+{% block content %}
+{% load static %}
+<section class="hero is-success">
+    <div class="hero-body">
+        <div class="columns is-vcentered has-text-centered">
+            <div class="column is-half">
+                <h1 class="title">Gerenciamento de Acesso</h1>
+                <p class="subtitle">
+                    Controle e acesso ao seu ambiente! <br> Gerenciamento de chaves e muito mais!
+                </p>
+
+                {% if request.user.is_authenticated %}
+                <div class="field is-grouped is-inline-block">
+                    <p class="control is-inline-block">
+                        <a href="{% url 'salas' %}">
+                            <button class="button is-large is-link">Visualizar Salas</button>
+                        </a>
+                    </p>
+                </div>
+                {% else %}
+                <div class="field is-grouped is-inline-block">
+                    <p class="control is-inline-block">
+                        <a href="{% url 'login' %}">
+                            <button class="button is-large is-link">LOGIN</button>
+                        </a>
+                    </p>
+                </div>
+                {% endif %}
+
+            </div>
+
+            <div class="column is-half pt-0">
+                <figure class="image is-3by2">
+                    <img src="{% static 'img/chave-hero.png' %}">
+                </figure>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
